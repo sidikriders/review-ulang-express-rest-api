@@ -1,7 +1,10 @@
 const express = require('express')
-var path = require('path')
-var favicon = require('serve-favicon')
-var logger = require('morgan')
+const path = require('path')
+const favicon = require('serve-favicon')
+const logger = require('morgan')
+
+const oneToMany = require('./routers/one-to-many.js')
+const manyToMany = require('./routers/many-to-many.js')
 
 const app = express()
 
@@ -11,6 +14,9 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.get('/', (req, res, next) => {
   res.send('Hello World!')
 })
+
+app.use('/1-n', oneToMany)
+app.use('/n-n', manyToMany)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
