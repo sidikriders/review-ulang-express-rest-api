@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const favicon = require('serve-favicon')
 const logger = require('morgan')
+const bodyParser = require('body-parser')
 
 const oneToMany = require('./routers/one-to-many.js')
 const manyToMany = require('./routers/many-to-many.js')
@@ -9,7 +10,8 @@ const manyToMany = require('./routers/many-to-many.js')
 const app = express()
 
 app.use(logger('dev'))
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get('/', (req, res, next) => {
   res.send('Hello World!')
